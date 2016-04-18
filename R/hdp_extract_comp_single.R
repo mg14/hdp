@@ -35,7 +35,7 @@ hdp_extract_comp_single <- function(chain, cos.merge=0.90){
   })
 
   cdc_1 <- lapply(clust_dp_counts(chain), function(x){
-    ans <- cbind(x, matrix(0, nrow=ndp, ncol=(maxclust-ncol(x)+1)))
+    ans <- Matrix::cbind2(x, matrix(0, nrow=ndp, ncol=(maxclust-ncol(x)+1)))
     return(ans[, -ncol(ans)])
   })
 
