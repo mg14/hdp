@@ -6,7 +6,7 @@ Authors@R: c(person("Nicola", "Roberts",
   person("Yee Whye", "Teh", role=c("aut", "cph"),
   comment="MATLAB and C original, http://www.stats.ox.ac.uk/~teh/research/npbayes/npbayes-r21.tgz"))
 Depends:
-    R(>= 3.2)
+    R(>= 3.1)
 Imports:
     lsa,
     methods,
