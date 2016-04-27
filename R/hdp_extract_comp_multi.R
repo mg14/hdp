@@ -39,7 +39,7 @@ hdp_extract_comp_multi <- function(chains, cos.merge=0.90, redo=TRUE){
   # Make each ccc matrix have the same number of columns
   maxcomp <- max(sapply(ccc_0, ncol))
   ccc_1 <- lapply(ccc_0, function(x){
-    ans <- cbind(x, matrix(0, nrow=ncat, ncol=(maxcomp-ncol(x)+1)))
+    ans <- Matrix::cbind2(x, matrix(0, nrow=ncat, ncol=(maxcomp-ncol(x)+1)))
     return(ans[, -ncol(ans)])
   })
 
@@ -70,7 +70,7 @@ hdp_extract_comp_multi <- function(chains, cos.merge=0.90, redo=TRUE){
   mclust <- ncol(ccc_1_toclust[[1]])
 
   if (mclust!=0) {
-    ccc_unlist <- t(do.call(cbind, ccc_1_toclust))
+    ccc_unlist <- t(Reduce(Matrix::cbind2, ccc_1_toclust))
     groupfactor <- rep(1:nch, each=mclust)
     initial_clust <- rep(1:mclust, times=nch)
 
@@ -122,7 +122,7 @@ hdp_extract_comp_multi <- function(chains, cos.merge=0.90, redo=TRUE){
   cdclist <- lapply(chlist, comp_dp_counts)
   cdcmerge <- mapply(function(x, y, z) {
     x <- lapply(x, function(w){
-            ans <- cbind(w, matrix(0, nrow=y, ncol=(maxcomp-ncol(w)+1)))
+            ans <- Matrix::cbind2(w, matrix(0, nrow=y, ncol=(maxcomp-ncol(w)+1)))
             ans <- ans[, -ncol(ans)]
             colnames(ans) <- z
             ans <- ans[,order(as.numeric(colnames(ans)))]
