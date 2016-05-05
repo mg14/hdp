@@ -114,7 +114,7 @@ hdp_extract_comp_multi <- function(chains, cos.merge=0.90, redo=TRUE){
   ccc_2 <- vector("list", nrow(cccmerge))
   names(ccc_2) <- rownames(cccmerge)
   for (i in 1:length(ccc_2)){
-    ccc_2[[i]] <- Reduce(rbind, cccmerge[i, ])
+    ccc_2[[i]] <- Reduce(Matrix::rbind2, cccmerge[i, ])
   }
 
   # Get comp_dp_counts list for each chain,
@@ -133,7 +133,7 @@ hdp_extract_comp_multi <- function(chains, cos.merge=0.90, redo=TRUE){
   # rbind matrices from different chains
   cdc_2 <- vector("list", length(cdcmerge[[1]]))
   for (i in 1:length(cdc_2)) {
-    cdc_2[[i]] <- Reduce(rbind, lapply(cdcmerge, `[[`, i))
+    cdc_2[[i]] <- Reduce(Matrix::rbind2, lapply(cdcmerge, `[[`, i))
     colnames(cdc_2[[i]]) <- 0:(maxcomp-1)
   }
 
